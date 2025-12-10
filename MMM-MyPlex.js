@@ -588,15 +588,66 @@ Module.register("MMM-MyPlex", {
 			return wrapper;
 		}
 
-		// Fallback: placeholder text
-		const text =
-			this.config &&
-			typeof this.config.text === "string" &&
-			this.config.text.length > 0
-				? this.config.text
-				: this.defaults.text;
+		// Fallback: no media available card
+		const displayServer =
+			this.config.serverName || this.config.server || "Plex";
 
-		wrapper.innerHTML = text || "MMM-MyPlex: no text configured";
+		// Section title for the empty state
+		const title = document.createElement("div");
+		title.className = "mmm-myplex-section-title";
+		title.innerHTML = `${displayServer} - No Media Available`;
+		wrapper.appendChild(title);
+
+		const list = document.createElement("div");
+		list.className = "mmm-myplex-list";
+
+		const itemDiv = document.createElement("div");
+		itemDiv.className = "mmm-myplex-item";
+		itemDiv.style.display = "flex";
+		itemDiv.style.alignItems = "flex-start";
+		itemDiv.style.marginBottom = "12px";
+
+		// Generic Plex poster for the empty state
+		const posterDiv = document.createElement("div");
+		posterDiv.className = "mmm-myplex-poster";
+		posterDiv.style.display = "inline-block";
+		posterDiv.style.marginRight = "12px";
+
+		const img = document.createElement("img");
+		img.src = this.file("assets/plex.png");
+		img.alt = "Plex";
+		img.style.maxWidth = "120px";
+		img.style.height = "auto";
+		img.style.borderRadius = "4px";
+		posterDiv.appendChild(img);
+		itemDiv.appendChild(posterDiv);
+
+		// Text container
+		const textDiv = document.createElement("div");
+		textDiv.className = "mmm-myplex-text";
+		itemDiv.appendChild(textDiv);
+
+		const line1 = document.createElement("div");
+		line1.className = "mmm-myplex-line1";
+		line1.innerHTML = "📭 Nothing New to Show";
+		textDiv.appendChild(line1);
+
+		const line2 = document.createElement("div");
+		line2.className = "mmm-myplex-line2";
+		const lookback =
+			this.config.lookbackDays || this.defaults.lookbackDays || 30;
+		const daysLabel = lookback === 1 ? "day" : "days";
+		line2.innerHTML = `No recently added media in the last ${lookback} ${daysLabel}.`;
+		textDiv.appendChild(line2);
+
+		const line3 = document.createElement("div");
+		line3.className = "mmm-myplex-summary";
+		line3.innerHTML =
+			"No one is streaming right now. Check back later!";
+		textDiv.appendChild(line3);
+
+		list.appendChild(itemDiv);
+		wrapper.appendChild(list);
 
 		return wrapper;
 	},
