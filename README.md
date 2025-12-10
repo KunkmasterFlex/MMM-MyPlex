@@ -41,6 +41,9 @@ Add these options to your module config:
 layoutMode: "compact",   // "compact" or "big"
 orientation: "vertical", // "vertical" or "horizontal"
 ```
+<img width="453" height="259" alt="Screenshot 2025-12-10 at 12 35 08 AM" src="https://github.com/user-attachments/assets/1df8c0ba-13ae-4784-bd50-e2d43192e598" />
+<img width="468" height="265" alt="Screenshot 2025-12-10 at 12 34 46 AM" src="https://github.com/user-attachments/assets/55ee21a8-1668-486a-bd22-2afd9c803830" />
+<img width="466" height="264" alt="Screenshot 2025-12-10 at 12 37 03 AM" src="https://github.com/user-attachments/assets/6522b119-1daa-4d3a-946c-27375370f24e" />
 
 ---
 
