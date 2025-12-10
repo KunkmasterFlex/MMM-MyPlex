@@ -30,7 +30,7 @@ A MagicMirror² module that displays **recently added** and **now streaming** co
 From the MagicMirror `modules` directory:
 
 ```bash
-git clone https://github.com/your-username/MMM-MyPlex.git
+git clone https://github.com/KunkmasterFlex/MMM-MyPlex.git
 cd MMM-MyPlex
 npm install
 ```
