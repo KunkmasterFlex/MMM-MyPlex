@@ -13,6 +13,35 @@ A MagicMirror² module that displays **recently added** and **now streaming** co
 - ⏱️ **Lookback Filter** – Show only content added within the last *N* days.
 - 🎛️ **Massive Configurability** – Toggle almost every piece of displayed metadata.
 
+## Layout Modes & Orientation Support
+
+MMM-MyPlex now includes optional **layout scaling modes** and **orientation-aware sizing** to optimize the module for different MagicMirror displays.
+
+### 🔠 Layout Modes
+| Mode        | Description |
+|-------------|-------------|
+| `compact`   | Default size. Best for small regions or multi-module dashboards. |
+| `big`       | Enlarged posters, wider text columns, bigger fonts, and expanded summaries. Ideal for mirrors with more space or when MMM-MyPlex is the star of the show. |
+
+### 🖥️ Orientation
+| Orientation   | Description |
+|---------------|-------------|
+| `vertical`    | Optimized for portrait MagicMirrors. Narrower layout, controlled height. |
+| `horizontal`  | Designed for landscape displays. Wider layout, taller posters, more text before truncation. |
+
+Layout mode and orientation can be combined:
+
+- **`layoutMode: "big", orientation: "horizontal"`** → cinematic, wide-format card display  
+- **`layoutMode: "big", orientation: "vertical"`** → large portrait cards  
+- **`compact`** + either orientation → minimal footprint  
+
+Add these options to your module config:
+
+```js
+layoutMode: "compact",   // "compact" or "big"
+orientation: "vertical", // "vertical" or "horizontal"
+```
+
 ---
 
 ## Requirements
@@ -60,6 +89,8 @@ Add to your `config.js`:
     recentlyAddedEpisodeLimit: 5,
     nowStreamingLimit: 5,
     lookbackDays: 30,
+    layoutMode: "compact",
+    orientation: "vertical",
 
     recentlyAddedUpdateInterval: 5 * 60 * 1000,
     nowStreamingUpdateInterval: 15 * 1000,
@@ -138,6 +169,8 @@ Add to your `config.js`:
 | `slideInterval` | number | 15000 | Time each card stays visible |
 | `slideOrder` | string | "sequential" | "random" or "sequential" |
 | `fadeSpeed` | number | 1000 | Fade transition speed |
+| `layoutMode`   | string | "compact" | "compact" or "big" display mode |
+| `orientation`  | string | "vertical" | "vertical" or "horizontal" layout |
 
 ---
 
@@ -184,6 +217,8 @@ All are booleans. All default **true**.
     recentlyAddedEpisodeLimit: 5,
     nowStreamingLimit: 5,
     lookbackDays: 30,
+    layoutMode: "compact",
+    orientation: "vertical",
 
     slideInterval: 15000,
     slideOrder: "random",
