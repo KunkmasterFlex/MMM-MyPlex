@@ -113,3 +113,88 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Layout / sizing variants
+   ------------------------------------------ */
+
+/* Big layout: generally larger posters, text, and max-width */
+.mmm-myplex-wrapper.mmm-myplex-big {
+  /* allow more room overall */
+  max-width: 520px;
+}
+
+/* Big + horizontal: wider footprint for landscape mirrors */
+.mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-horizontal {
+  max-width: 720px;
+}
+
+/* Big + vertical: slightly taller/narrower layout for portrait mirrors */
+.mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical {
+  max-width: 520px;
+}
+
+/* Poster grows in big mode */
+.mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-poster img {
+  max-width: 180px;
+}
+
+/* Text column grows in big mode */
+.mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-text {
+  max-width: 420px;
+}
+
+/* In big + horizontal, let text breathe even more */
+.mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-horizontal .mmm-myplex-text {
+  max-width: 480px;
+}
+
+/* Typography tweaks for big mode */
+.mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-line1 {
+  font-size: 1.15rem;
+}
+
+.mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-line2,
+.mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-line3 {
+  font-size: 0.95rem;
+}
+
+.mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-summary {
+  font-size: 0.95rem;
+  -webkit-line-clamp: 5; /* allow a bit more summary in big mode */
+}
+
+/* Empty-state card inside big layouts */
+.mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-empty-title {
+  font-size: 1.15rem;
+}
+
+.mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-empty-message,
+.mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-empty-summary {
+  font-size: 0.95rem;
+}
+
+/* Additional tuning for big + horizontal layouts:
+   - Larger poster
+   - Wider text column
+   - More summary lines
+   - Looser vertical spacing
+*/
+.mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-horizontal .mmm-myplex-poster img {
+  max-width: 200px; /* bump poster size a bit more on wide mirrors */
+}
+
+.mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-horizontal .mmm-myplex-text {
+  max-width: 520px; /* allow more width for description/details */
+}
+
+.mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-horizontal .mmm-myplex-summary {
+  -webkit-line-clamp: 10; /* show more of the description in wide mode */
+}
+
+.mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-horizontal .mmm-myplex-section-title {
+  margin-bottom: 12px; /* give the header a little more breathing room */
+}
+
+.mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-horizontal .mmm-myplex-item {
+  margin-bottom: 20px; /* more space between cards in wide layout */
+}
