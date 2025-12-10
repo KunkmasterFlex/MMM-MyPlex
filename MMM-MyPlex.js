@@ -75,6 +75,8 @@ Module.register("MMM-MyPlex", {
 	currentSlideIndex: 0,
 	_slideTimer: null,
 	_nowTimer: null,
+	_randomQueue: null,
+	_randomQueueIndex: 0,
 
 	start: function () {
 		Log.info("Starting module: " + this.name);
@@ -120,14 +122,45 @@ Module.register("MMM-MyPlex", {
 
 		this._slideTimer = setInterval(function () {
 			const total = self._getTotalSlides();
+
 			if (total > 0) {
 				if (self.config.slideOrder === "random") {
-					self.currentSlideIndex = Math.floor(Math.random() * total);
+					// Build or rebuild the random queue if needed
+					self._ensureRandomQueue(total);
+
+					const queue = self._randomQueue || [];
+					if (queue.length > 0) {
+						const pos =
+							typeof self._randomQueueIndex === "number"
+								? self._randomQueueIndex
+								: 0;
+						self.currentSlideIndex = queue[pos];
+
+						// Advance the pointer
+						self._randomQueueIndex = pos + 1;
+
+						// If we've exhausted the queue, clear it so it will be reshuffled next tick
+						if (self._randomQueueIndex >= queue.length) {
+							self._randomQueueIndex = 0;
+							self._randomQueue = null;
+						}
+					} else {
+						// Fallback: simple sequential advance if something went wrong
+						self.currentSlideIndex =
+							(self.currentSlideIndex + 1) % total;
+					}
 				} else {
+					// Sequential: just walk through in order
 					self.currentSlideIndex =
 						(self.currentSlideIndex + 1) % total;
 				}
+
 				self.updateDom(self.config.fadeSpeed || 1000);
+			} else {
+				// No slides: reset state so we start fresh when data arrives
+				self.currentSlideIndex = 0;
+				self._randomQueue = null;
+				self._randomQueueIndex = 0;
 			}
 		}, slideInterval);
 
@@ -173,6 +206,27 @@ Module.register("MMM-MyPlex", {
 		}
 
 		return total;
+	},
+
+	/**
+	 * Ensure we have a shuffled queue of slide indices for random mode.
+	 * If the total count changes, the queue is rebuilt and reshuffled.
+	 */
+	_ensureRandomQueue: function (total) {
+		if (!this._randomQueue || this._randomQueue.length !== total) {
+			this._randomQueueIndex = 0;
+			this._randomQueue = [];
+			for (let i = 0; i < total; i++) {
+				this._randomQueue.push(i);
+			}
+			// Fisher–Yates shuffle
+			for (let i = this._randomQueue.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				const tmp = this._randomQueue[i];
+				this._randomQueue[i] = this._randomQueue[j];
+				this._randomQueue[j] = tmp;
+			}
+		}
 	},
 
 	getStyles: function () {
