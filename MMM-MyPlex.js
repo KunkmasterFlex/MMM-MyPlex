@@ -38,6 +38,10 @@ Module.register("MMM-MyPlex", {
 		slideInterval: 15 * 1000, // 15 seconds per slide
 		slideOrder: "sequential", // "sequential" or "random"
 
+		// Layout / sizing behavior
+		layoutMode: "compact", // "compact" or "big"
+		orientation: "vertical", // "vertical" or "horizontal"
+
 		// Fade animation speed (ms) for slide transitions
 		fadeSpeed: 1000,
 
@@ -236,6 +240,20 @@ Module.register("MMM-MyPlex", {
 	getDom: function () {
 		const wrapper = document.createElement("div");
 		wrapper.className = "mmm-myplex-wrapper";
+
+		// Apply layout and orientation classes based on config
+		const layoutMode = this.config.layoutMode || this.defaults.layoutMode || "compact";
+		const orientation = this.config.orientation || this.defaults.orientation || "vertical";
+
+		if (layoutMode === "big") {
+			wrapper.classList.add("mmm-myplex-big");
+		}
+
+		if (orientation === "horizontal") {
+			wrapper.classList.add("mmm-myplex-horizontal");
+		} else {
+			wrapper.classList.add("mmm-myplex-vertical");
+		}
 
 		const totalSlides = this._getTotalSlides();
 
