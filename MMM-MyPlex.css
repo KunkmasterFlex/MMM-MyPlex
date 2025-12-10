@@ -130,24 +130,26 @@
 
 /* Big + vertical: slightly taller/narrower layout for portrait mirrors */
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical {
-  max-width: 460px;   /* narrower to avoid bleeding into side modules */
+  max-width: 500px;   /* narrower to avoid bleeding into side modules */
 }
 
 /* Vertical big mode: increase poster height and text area verticality */
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-poster img {
-  max-width: 160px;   /* slightly narrower than horizontal big */
+  max-width: 200px;   /* slightly narrower than horizontal big */
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-text {
-  max-width: 300px;   /* less horizontal spread, encourages vertical flow */
+  max-width: 360px;   /* less horizontal spread, encourages vertical flow */
+  font-size: 1rem;
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-summary {
-  -webkit-line-clamp: 8;   /* allow more vertical summary space */
+  -webkit-line-clamp: 12;   /* allow more vertical summary space */
+  font-size: 1rem;
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-item {
-  margin-bottom: 24px;  /* more vertical spacing between cards */
+  margin-bottom: 32px;  /* more vertical spacing between cards */
 }
 
 /* Poster grows in big mode */
