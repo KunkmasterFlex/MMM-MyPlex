@@ -139,13 +139,13 @@
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-text {
-  max-width: 420px;   /* less horizontal spread, encourages vertical flow */
-  font-size: 1.1rem;
+  max-width: 500px;   /* less horizontal spread, encourages vertical flow */
+  font-size: 1.35rem;
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-summary {
-  -webkit-line-clamp: 16;   /* allow more vertical summary space */
-  font-size: 1.05rem;
+  -webkit-line-clamp: 20;   /* allow more vertical summary space */
+  font-size: 1.3rem;
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-item {
@@ -169,27 +169,27 @@
 
 /* Typography tweaks for big mode */
 .mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-line1 {
-  font-size: 1.15rem;
+  font-size: 1.45rem;
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-line2,
 .mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-line3 {
-  font-size: 0.95rem;
+  font-size: 1.25rem;
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-summary {
-  font-size: 0.95rem;
-  -webkit-line-clamp: 5; /* allow a bit more summary in big mode */
+  font-size: 1.25rem;
+  -webkit-line-clamp: 8; /* allow a bit more summary in big mode */
 }
 
 /* Empty-state card inside big layouts */
 .mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-empty-title {
-  font-size: 1.15rem;
+  font-size: 1.45rem;
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-empty-message,
 .mmm-myplex-wrapper.mmm-myplex-big .mmm-myplex-empty-summary {
-  font-size: 0.95rem;
+  font-size: 1.25rem;
 }
 
 /* Additional tuning for big + horizontal layouts:
