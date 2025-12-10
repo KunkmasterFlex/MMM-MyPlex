@@ -1,4 +1,4 @@
-/* Root wrapper: constrain width so summaries don't stretch full-screen */
+/ * Root wrapper: constrain width so summaries don't stretch full-screen */
 .mmm-myplex-wrapper {
   max-width: 420px;           /* adjust as desired for region width */
 }
@@ -130,26 +130,26 @@
 
 /* Big + vertical: slightly taller/narrower layout for portrait mirrors */
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical {
-  max-width: 500px;   /* narrower to avoid bleeding into side modules */
+  max-width: 560px;   /* narrower to avoid bleeding into side modules */
 }
 
 /* Vertical big mode: increase poster height and text area verticality */
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-poster img {
-  max-width: 200px;   /* slightly narrower than horizontal big */
+  max-width: 240px;   /* slightly narrower than horizontal big */
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-text {
-  max-width: 360px;   /* less horizontal spread, encourages vertical flow */
-  font-size: 1rem;
+  max-width: 420px;   /* less horizontal spread, encourages vertical flow */
+  font-size: 1.1rem;
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-summary {
-  -webkit-line-clamp: 12;   /* allow more vertical summary space */
-  font-size: 1rem;
+  -webkit-line-clamp: 16;   /* allow more vertical summary space */
+  font-size: 1.05rem;
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-item {
-  margin-bottom: 32px;  /* more vertical spacing between cards */
+  margin-bottom: 40px;  /* more vertical spacing between cards */
 }
 
 /* Poster grows in big mode */
