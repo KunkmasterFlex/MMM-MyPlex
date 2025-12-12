@@ -86,9 +86,9 @@
   word-wrap: break-word;
   font-size: 0.85rem;   /* match line2/line3 font size */
 
-  /* Clamp to a maximum of 4 lines to prevent overly tall cards */
+  /* Clamp to a maximum of 6 lines to prevent overly tall cards */
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
