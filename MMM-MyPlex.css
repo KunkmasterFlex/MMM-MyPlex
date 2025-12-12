@@ -4,11 +4,39 @@
 }
 
 /* Each card/item */
-.mmm-myplex-item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  overflow: hidden;           /* ensure content doesn't spill horizontally */
+ .mmm-myplex-item {
+   display: flex;
+   align-items: flex-start;
+   margin-bottom: 12px;
+   overflow: hidden;           /* ensure content doesn't spill horizontally */
+ }
+
+/* Card layout modes (poster left vs right)
+   ------------------------------------------ */
+
+/* Default / left layout: poster on the left, text on the right */
+.mmm-myplex-wrapper.mmm-myplex-layout-left .mmm-myplex-item {
+  flex-direction: row;
+}
+
+.mmm-myplex-wrapper.mmm-myplex-layout-left .mmm-myplex-poster {
+  margin-right: 12px;
+  margin-left: 0;
+}
+
+/* Right layout: poster on the right, text on the left */
+.mmm-myplex-wrapper.mmm-myplex-layout-right .mmm-myplex-item {
+  flex-direction: row-reverse;
+}
+
+.mmm-myplex-wrapper.mmm-myplex-layout-right .mmm-myplex-poster {
+  margin-left: 12px;
+  margin-right: 0;
+}
+
+/* Ensure text stays left-justified in all layouts */
+.mmm-myplex-text {
+  text-align: left;
 }
 
 /* Poster container and image */
@@ -130,7 +158,7 @@
 
 /* Big + vertical: slightly taller/narrower layout for portrait mirrors */
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical {
-  max-width: 560px;   /* narrower to avoid bleeding into side modules */
+  max-width: 520px;   /* narrower to avoid bleeding into side modules */
 }
 
 /* Vertical big mode: increase poster height and text area verticality */
@@ -139,7 +167,7 @@
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-text {
-  max-width: 500px;   /* less horizontal spread, encourages vertical flow */
+  max-width: 460px;   /* less horizontal spread, encourages vertical flow */
   font-size: 1.35rem;
 }
 
