@@ -41,6 +41,11 @@ Module.register("MMM-MyPlex", {
 		// Layout / sizing behavior
 		layoutMode: "compact", // "compact" or "big"
 		orientation: "vertical", // "vertical" or "horizontal"
+		// Card layout relative to the module position
+		// "auto" uses the MagicMirror position (left/right/center) to decide.
+		// "left"  => poster on the left, text on the right (left-justified)
+		// "right" => poster on the right, text on the left (left-justified)
+		cardLayout: "auto", // "auto" | "left" | "right"
 
 		// Fade animation speed (ms) for slide transitions
 		fadeSpeed: 1000,
@@ -257,6 +262,28 @@ Module.register("MMM-MyPlex", {
 
 		const totalSlides = this._getTotalSlides();
 
+		// Apply card layout (poster left/right) based on config or module position
+		const cfgLayout = (this.config.cardLayout || "auto").toLowerCase();
+		let resolvedLayout = cfgLayout;
+
+		if (cfgLayout === "auto") {
+			const pos = (this.data && this.data.position ? this.data.position : "").toLowerCase();
+			if (pos.includes("right")) {
+				resolvedLayout = "right";
+			} else if (pos.includes("left")) {
+				resolvedLayout = "left";
+			} else {
+				// center positions: default to left layout unless user explicitly chooses right
+				resolvedLayout = "left";
+			}
+		}
+
+		if (resolvedLayout === "right") {
+			wrapper.classList.add("mmm-myplex-layout-right");
+		} else {
+			wrapper.classList.add("mmm-myplex-layout-left");
+		}
+
 		if (totalSlides > 0) {
 			let idx = this.currentSlideIndex % totalSlides;
 			let mode = null; // "movie", "episode", "now"
@@ -337,9 +364,6 @@ Module.register("MMM-MyPlex", {
 			// Build a single card
 			const itemDiv = document.createElement("div");
 			itemDiv.className = "mmm-myplex-item";
-			itemDiv.style.display = "flex";
-			itemDiv.style.alignItems = "flex-start";
-			itemDiv.style.marginBottom = "12px";
 
 			// Poster (if enabled) - prefer series posters for episodes
 			if (usePosters) {
@@ -355,8 +379,6 @@ Module.register("MMM-MyPlex", {
 				if (posterPath) {
 					const posterDiv = document.createElement("div");
 					posterDiv.className = "mmm-myplex-poster";
-					posterDiv.style.display = "inline-block";
-					posterDiv.style.marginRight = "12px";
 
 					const img = document.createElement("img");
 					let posterUrl = posterPath;
@@ -373,9 +395,6 @@ Module.register("MMM-MyPlex", {
 					}
 					img.src = posterUrl;
 					img.alt = item.title || item.episodeTitle || item.seriesTitle || "";
-					img.style.maxWidth = "120px";
-					img.style.height = "auto";
-					img.style.borderRadius = "4px";
 					posterDiv.appendChild(img);
 					itemDiv.appendChild(posterDiv);
 				}
@@ -621,22 +640,14 @@ Module.register("MMM-MyPlex", {
 
 		const itemDiv = document.createElement("div");
 		itemDiv.className = "mmm-myplex-item";
-		itemDiv.style.display = "flex";
-		itemDiv.style.alignItems = "flex-start";
-		itemDiv.style.marginBottom = "12px";
 
 		// Generic Plex poster for the empty state
 		const posterDiv = document.createElement("div");
 		posterDiv.className = "mmm-myplex-poster";
-		posterDiv.style.display = "inline-block";
-		posterDiv.style.marginRight = "12px";
 
 		const img = document.createElement("img");
 		img.src = this.file("assets/plex.png");
 		img.alt = "Plex";
-		img.style.maxWidth = "120px";
-		img.style.height = "auto";
-		img.style.borderRadius = "4px";
 		posterDiv.appendChild(img);
 		itemDiv.appendChild(posterDiv);
 
