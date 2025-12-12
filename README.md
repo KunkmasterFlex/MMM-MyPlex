@@ -29,6 +29,28 @@ MMM-MyPlex now includes optional **layout scaling modes** and **orientation-awar
 | `vertical`    | Optimized for portrait MagicMirrors. Narrower layout, controlled height. |
 | `horizontal`  | Designed for landscape displays. Wider layout, taller posters, more text before truncation. |
 
+### 🧭 Card Layout (Left / Right / Auto)
+
+MMM-MyPlex can automatically adjust the **poster and text alignment** based on where the module is placed on your MagicMirror. This helps the cards feel visually cohesive whether the module lives on the left, right, or center of the screen.
+
+#### Card Layout Options
+| Value | Description |
+|-------|-------------|
+| `auto` | Default. Uses the MagicMirror position to decide layout. Left positions show poster on the left, right positions show poster on the right. |
+| `left` | Forces poster on the left, text on the right (left-justified). |
+| `right` | Forces poster on the right, text on the left (left-justified). |
+
+In `auto` mode:
+- Modules placed in `top_left`, `bottom_left`, etc. use **left layout**
+- Modules placed in `top_right`, `bottom_right`, etc. use **right layout**
+- Center positions default to **left layout** unless explicitly overridden
+
+Add this option to your config if you want to override the automatic behavior:
+
+```js
+cardLayout: "auto", // "auto", "left", or "right"
+```
+
 Layout mode and orientation can be combined:
 
 - **`layoutMode: "big", orientation: "horizontal"`** → cinematic, wide-format card display  
@@ -39,7 +61,8 @@ Add these options to your module config:
 
 ```js
 layoutMode: "compact",   // "compact" or "big"
-orientation: "vertical", // "vertical" or "horizontal"
+orientation: "vertical", // "vertical" or "horizontal",
+cardLayout: "auto",      // "auto", "left", or "right"
 ```
 <img width="453" height="259" alt="Screenshot 2025-12-10 at 12 35 08 AM" src="https://github.com/user-attachments/assets/1df8c0ba-13ae-4784-bd50-e2d43192e598" />
 <img width="468" height="265" alt="Screenshot 2025-12-10 at 12 34 46 AM" src="https://github.com/user-attachments/assets/55ee21a8-1668-486a-bd22-2afd9c803830" />
@@ -94,6 +117,7 @@ Add to your `config.js`:
     lookbackDays: 30,
     layoutMode: "compact",
     orientation: "vertical",
+    cardLayout: "auto",
 
     recentlyAddedUpdateInterval: 5 * 60 * 1000,
     nowStreamingUpdateInterval: 15 * 1000,
@@ -174,6 +198,7 @@ Add to your `config.js`:
 | `fadeSpeed` | number | 1000 | Fade transition speed |
 | `layoutMode`   | string | "compact" | "compact" or "big" display mode |
 | `orientation`  | string | "vertical" | "vertical" or "horizontal" layout |
+| `cardLayout`   | string | "auto" | "auto", "left", or "right" poster/text alignment |
 
 ---
 
@@ -222,6 +247,7 @@ All are booleans. All default **true**.
     lookbackDays: 30,
     layoutMode: "compact",
     orientation: "vertical",
+    cardLayout: "auto",
 
     slideInterval: 15000,
     slideOrder: "random",
