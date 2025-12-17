@@ -196,6 +196,10 @@ Module.register("MMM-MyPlex", {
             const raInterval =
                 this.config.recentlyAddedUpdateInterval || 5 * 60 * 1000;
             this._recentTimer = setInterval(function () {
+                // Visible proof the timer is firing (no token logged)
+                if (self.config.consoleLog) {
+                    Log.info(self.name + " polling recently added…");
+                }
                 self.sendSocketNotification("FETCH_RECENTLY_ADDED", baseCfg);
             }, raInterval);
         }
@@ -744,11 +748,13 @@ Module.register("MMM-MyPlex", {
             this.recentMovies = movies;
             this.recentEpisodes = episodes;
 
+            // Reset slideshow deck so updated data is reflected immediately
+            this.currentSlideIndex = 0;
+            this._randomQueue = null;
+            this._randomQueueIndex = 0;
+
             const total = this._getTotalSlides();
-            if (total > 0) {
-                this.currentSlideIndex =
-                    this.currentSlideIndex % total;
-            } else {
+            if (total <= 0) {
                 this.currentSlideIndex = 0;
             }
 
@@ -772,11 +778,13 @@ Module.register("MMM-MyPlex", {
 
             this.nowStreaming = sessions || [];
 
+            // Reset slideshow deck so session changes show up immediately
+            this.currentSlideIndex = 0;
+            this._randomQueue = null;
+            this._randomQueueIndex = 0;
+
             const total = this._getTotalSlides();
-            if (total > 0) {
-                this.currentSlideIndex =
-                    this.currentSlideIndex % total;
-            } else {
+            if (total <= 0) {
                 this.currentSlideIndex = 0;
             }
 
