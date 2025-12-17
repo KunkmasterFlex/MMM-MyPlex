@@ -158,16 +158,16 @@
 
 /* Big + vertical: slightly taller/narrower layout for portrait mirrors */
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical {
-  max-width: 520px;   /* narrower to avoid bleeding into side modules */
+  max-width: 470px;   /* shave ~0.5in horizontally for portrait mirrors */
 }
 
 /* Vertical big mode: increase poster height and text area verticality */
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-poster img {
-  max-width: 240px;   /* slightly narrower than horizontal big */
+  max-width: 220px;   /* small poster trim to reclaim horizontal space */
 }
 
 .mmm-myplex-wrapper.mmm-myplex-big.mmm-myplex-vertical .mmm-myplex-text {
-  max-width: 460px;   /* less horizontal spread, encourages vertical flow */
+  max-width: 410px;   /* tighter text column to prevent edge crowding */
   font-size: 1.35rem;
 }
 
