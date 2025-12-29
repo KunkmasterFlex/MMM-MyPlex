@@ -12,6 +12,7 @@ A MagicMirror² module that displays **recently added** and **now streaming** co
 - 🖼️ **Slideshow Cards** – Each media item becomes its own card. Random or sequential.
 - ⏱️ **Lookback Filter** – Show only content added within the last *N* days.
 - 🎛️ **Massive Configurability** – Toggle almost every piece of displayed metadata.
+- 🫥 **Auto-Hide When Idle** – Optionally hides the entire module when nothing is currently streaming, and automatically reappears when playback starts.
 
 ## Layout Modes & Orientation Support
 
@@ -62,7 +63,7 @@ Add these options to your module config:
 ```js
 layoutMode: "compact",   // "compact" or "big"
 orientation: "vertical", // "vertical" or "horizontal",
-cardLayout: "auto",      // "auto", "left", or "right"
+cardLayout: "auto",      // "auto", "left", or "right",
 ```
 <img width="453" height="259" alt="Screenshot 2025-12-10 at 12 35 08 AM" src="https://github.com/user-attachments/assets/1df8c0ba-13ae-4784-bd50-e2d43192e598" />
 <img width="468" height="265" alt="Screenshot 2025-12-10 at 12 34 46 AM" src="https://github.com/user-attachments/assets/55ee21a8-1668-486a-bd22-2afd9c803830" />
@@ -121,6 +122,9 @@ Add to your `config.js`:
 
     recentlyAddedUpdateInterval: 5 * 60 * 1000,
     nowStreamingUpdateInterval: 15 * 1000,
+
+    hideWhenIdle: false,        // Hide module when nothing is streaming
+    hideAnimationSpeed: 1000,   // Fade speed when hiding/showing (ms)
 
     slideInterval: 15000,
     slideOrder: "random",
@@ -202,7 +206,34 @@ Add to your `config.js`:
 
 ---
 
-### Display Toggles
+### 🫥 Auto-Hide When Idle
+
+MMM-MyPlex can automatically **hide itself entirely** when there is nothing currently streaming on Plex.
+
+This is a *true hide*:
+- No empty space is reserved in the MagicMirror layout
+- The module instantly reappears when playback starts
+- All polling and background updates continue while hidden
+
+#### Options
+
+| Field | Type | Default | Description |
+|------|------|---------|-------------|
+| `hideWhenIdle` | boolean | false | If true, hides the entire module when there are no active streams |
+| `hideAnimationSpeed` | number | 1000 | Fade duration (ms) when hiding/showing the module |
+
+#### Example
+
+```js
+hideWhenIdle: true,
+hideAnimationSpeed: 1000,
+```
+
+> 💡 This is especially useful when MMM-MyPlex is used *only* for **Now Streaming** and you don’t want idle clutter on your mirror.
+
+---
+
+## Display Toggles
 
 All are booleans. All default **true**.
 
