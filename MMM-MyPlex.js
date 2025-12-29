@@ -34,6 +34,11 @@ Module.register("MMM-MyPlex", {
         recentlyAddedUpdateInterval: 5 * 60 * 1000, // 5 minutes
         nowStreamingUpdateInterval: 15 * 1000, // 15 seconds
 
+        // Hide behavior (optional)
+        // If enabled, hides the entire module when nothing is currently streaming.
+        hideWhenIdle: false,
+        hideAnimationSpeed: 1000, // ms (0 = instant)
+
         // Slideshow behavior
         slideInterval: 15 * 1000, // 15 seconds per slide
         slideOrder: "sequential", // "sequential" or "random"
@@ -87,6 +92,7 @@ Module.register("MMM-MyPlex", {
     _recentTimer: null,
     _randomQueue: null,
     _randomQueueIndex: 0,
+    _isHiddenForIdle: false,
 
     start: function () {
         // Prevent duplicate timers if the module is reloaded/restarted
@@ -95,6 +101,7 @@ Module.register("MMM-MyPlex", {
         if (this._recentTimer) clearInterval(this._recentTimer);
 
         Log.info("Starting module: " + this.name);
+        this._isHiddenForIdle = false;
         // Dump effective config (defaults merged with config.js)
         try {
             Log.info(this.name + " config: " + JSON.stringify(this.config));
@@ -256,6 +263,31 @@ Module.register("MMM-MyPlex", {
                 const tmp = this._randomQueue[i];
                 this._randomQueue[i] = this._randomQueue[j];
                 this._randomQueue[j] = tmp;
+            }
+        }
+    },
+
+    /**
+     * Hide/show the module when nothing is currently streaming.
+     * Controlled via config.hideWhenIdle + config.hideAnimationSpeed.
+     */
+    setIdleVisibility: function (hasNowPlaying) {
+        if (!this.config.hideWhenIdle) return;
+
+        const speed =
+            typeof this.config.hideAnimationSpeed === "number"
+                ? this.config.hideAnimationSpeed
+                : 1000;
+
+        if (!hasNowPlaying) {
+            if (!this._isHiddenForIdle) {
+                this.hide(speed);
+                this._isHiddenForIdle = true;
+            }
+        } else {
+            if (this._isHiddenForIdle) {
+                this.show(speed);
+                this._isHiddenForIdle = false;
             }
         }
     },
@@ -777,6 +809,11 @@ Module.register("MMM-MyPlex", {
             }
 
             this.nowStreaming = sessions || [];
+
+            // Optional: hide the entire module when nothing is streaming
+            const hasNowPlaying =
+                Array.isArray(this.nowStreaming) && this.nowStreaming.length > 0;
+            this.setIdleVisibility(hasNowPlaying);
 
             // Reset slideshow deck so session changes show up immediately
             this.currentSlideIndex = 0;
